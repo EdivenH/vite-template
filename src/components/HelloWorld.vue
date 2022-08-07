@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { SvgIcon } from "./Icon/index";
+
+const icons = import.meta.globEager("../assets/svg/*");
+
+const iconUrls = Object.values(icons).map((mod: any) => {
+  const fileName = mod.default.split("/").pop();
+  const [svgName] = fileName.split(".");
+  return svgName;
+});
 
 defineProps<{ msg: string }>();
 
@@ -16,6 +25,8 @@ const count = ref(0);
       <code>components/HelloWorld.vue</code> to test HMR
     </p>
   </div>
+
+  <SvgIcon v-for="item in iconUrls" :key="item" :name="item" />
 
   <p>
     Check out
